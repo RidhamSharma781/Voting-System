@@ -27,6 +27,4 @@ if($password != $cpassword){
     }
 }
 
-
-
 ?>

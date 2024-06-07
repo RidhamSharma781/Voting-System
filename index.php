@@ -75,18 +75,18 @@
     <h1>Voting System</h1>
     <div class="container">
         <h2>Login</h2>
-            <form action="">
+            <form action="./actions/login.php" method="POST">
                 <div class="input">
                     <label for="username">Username</label>
-                    <input type="text" name="username" id="username" placeholder="Enter Username">
+                    <input type="text" name="username" id="username" placeholder="Enter Username" required>
                 </div>
                 <div class="input">
                     <label for="mobile">Phone no.</label>
-                    <input type="text" name="mobile" id="mobile" placeholder="Enter Phone no.">
+                    <input type="text" name="mobile" id="mobile" placeholder="Enter Phone no." required>
                 </div>
                 <div class="input">
                     <label for="password">Password</label>
-                    <input type="text" name="password" id="password" placeholder="Enter Password">
+                    <input type="password" name="password" id="password" placeholder="Enter Password" required>
                 </div>
                 <div class="input">
                     <label for="">Choose Type:</label>
