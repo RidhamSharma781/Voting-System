@@ -1,10 +1,3 @@
-<?php
-$con = new mysqli('localhost', 'root', 'ridham@2003', 'voting');
-if (!$con) {
-    die(mysqli_error($con));
-}
-?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +97,7 @@ if (!$con) {
                 </div>
                 <button type="submit">Login</button>
             </form>
-            <p>Don't have ans account? <a href="./partials/register.php">Register here!</a></p>
+            <p>Don't have ans account? <a href="./partials/registration.php">Register here!</a></p>
         </div>
 
 </body>
