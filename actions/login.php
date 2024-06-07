@@ -1,5 +1,6 @@
 <?php
 include ('connect.php');
+session_start();
 
 $username = $_POST['username'];
 $mobile = $_POST['mobile'];
@@ -27,7 +28,7 @@ $type = $_POST['type'];
  }else{
     echo "<script>
     alert('Invalid Credentials!');
-    window.location = '../login.php'
+    window.location = '../index.php'
     </script>";
  }
 

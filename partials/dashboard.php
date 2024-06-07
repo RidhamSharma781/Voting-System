@@ -1,11 +1,173 @@
+<?php
+session_start();
+$data = $_SESSION['data'];
+$status = $_SESSION['status'];
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            font-family: 'Poppins';
+        }
+        .danger{
+            color: red;
+        }
+        .success{
+            color: white;
+            background-color: green;
+        }
+        body{
+        
+        }
+        h1 {
+            text-align: center;
+            font-size: 50px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-top: 20px;
+        }
+        .profile-container{
+            border-radius: 10px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            margin: 40px auto;
+            width: fit-content;
+            padding-right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background-color: white;
+            /* padding: 10px 10px; */
+        }
+          img{
+            width: 150px;
+            height: 200px;
+            border-radius: 10px;
+        }
+        .info{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+         .info p{
+            font-size: 20px;
+            font-weight: 700;
+        }
+         .info span{
+            font-weight: normal;
+        }
+        .candidates-container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 20px;
+        }
+        .candidate{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 200px;
+            height: fit-content;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            padding: 10px 10px;
+            border-radius: 10px;
+        }
+        .candidate img{
+            margin: 5px auto;
+        }
+        .candidate p{
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+         .candidate span{
+            font-weight: normal;
+        }
+        button{
+            background-color: white;
+            color: black;
+            width: 100%;
+            padding: 2px 6px;
+            border: 1px solid black;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: black;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome!</h1>
+    <h1>Voting System</h1>
+    <div class="profile-container">
+        <img src="../uploads/<?php echo $data['photo']?>" alt="">
+        <div class="credentials">
+            <div class="info">
+                <p>Name : <span><?php echo $data['username']?></span></p>
+                <p>Mobile no. : <span><?php echo $data['mobile']?></span></p>
+                <p>status : <span><?php if($status==1){echo "Voted";}else{echo "Not Voted";} ?></span></p>
+                <button>Logout</button>
+            </div>
+        </div>
+    </div>
+    <h2>Candidates</h2>
+    <div class="candidates-container">
+        <?php
+        if(isset($_SESSION['groups'])){
+            $groups = $_SESSION['groups'];
+            for($i=0;$i<count($groups);$i++){
+                ?>
+                <div class="candidate">
+            <img src="../uploads/<?php echo $groups[$i]['photo']?>">
+            <p>Name : <span><?php echo $groups[$i]['username']?></span></p>
+            <p>Votes : <span><?php echo $groups[$i]['votes']?></span></p>
+            <?php
+            if($status==1){
+                ?>
+                a<button class="success">Voted</button>
+                <?php
+            }else{
+                ?>
+                <a href="../actions/vote.php"><button>Vote</button></a>
+                <?php
+            }
+            ?>
+        </div>
+        <div class="form">
+            <input type="hidden" name="groupvotes" value="<?php echo $groups[$i]['votes']?>">
+            <input type="hidden" name="groupid" value="<?php echo $groups[$i]['id']?>">
+        </div>
+        <?php
+            }
+            
+        }else{
+            ?>
+            <h2>No Available Candidates!</h2>
+            <?php
+        }
+        ?>
+        
+       
+
+    </div>
 </body>
 </html>
