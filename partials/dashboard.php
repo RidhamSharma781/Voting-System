@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(!isset($_SESSION["id"])){
+    header('location:../');
+}
 $data = $_SESSION['data'];
 $status = $_SESSION['status'];
 
@@ -21,15 +24,16 @@ $status = $_SESSION['status'];
             padding: 0px;
             font-family: 'Poppins';
         }
+        body{
+            background: #161513;
+            color: white;
+        }
         .danger{
             color: red;
         }
         .success{
             color: white;
             background-color: green;
-        }
-        body{
-        
         }
         h1 {
             text-align: center;
@@ -44,6 +48,7 @@ $status = $_SESSION['status'];
         }
         .profile-container{
             border-radius: 10px;
+            color: black;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
             margin: 40px auto;
             width: fit-content;
@@ -53,6 +58,11 @@ $status = $_SESSION['status'];
             gap: 20px;
             background-color: white;
             /* padding: 10px 10px; */
+        }
+        .container-small{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
           img{
             width: 150px;
@@ -73,7 +83,7 @@ $status = $_SESSION['status'];
          .info span{
             font-weight: normal;
         }
-        .candidates-container{
+        .candidates-container{            
             display: flex;
             align-items: center;
             justify-content: center;
@@ -81,6 +91,8 @@ $status = $_SESSION['status'];
             margin-top: 20px;
         }
         .candidate{
+            background-color: white;
+            color: black;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -111,7 +123,24 @@ $status = $_SESSION['status'];
             cursor: pointer;
         }
         button:hover{
+            border: 1px solid white;
+            color: white;
+        }
+        .logout{
+            background-color: white;
+            color: black;
+            width: 100%;
+            padding: 2px 6px;
+            border: 1px solid black;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .logout:hover{
             background-color: black;
+            color: white;
+        }
+        .danger{
+            background-color: red;
             color: white;
         }
     </style>
@@ -124,8 +153,8 @@ $status = $_SESSION['status'];
             <div class="info">
                 <p>Name : <span><?php echo $data['username']?></span></p>
                 <p>Mobile no. : <span><?php echo $data['mobile']?></span></p>
-                <p>status : <span><?php if($status==1){echo "Voted";}else{echo "Not Voted";} ?></span></p>
-                <button>Logout</button>
+                <p>status :  <?php if($status==1){echo "<span style='color:green'>Voted</span>";}else{echo "<span style='color:red'>Not Voted</span>";} ?></p>
+               <a href="logout.php"><button class="logout">Logout</button></a> 
             </div>
         </div>
     </div>
@@ -136,25 +165,28 @@ $status = $_SESSION['status'];
             $groups = $_SESSION['groups'];
             for($i=0;$i<count($groups);$i++){
                 ?>
+                <div class="container-small">
                 <div class="candidate">
             <img src="../uploads/<?php echo $groups[$i]['photo']?>">
             <p>Name : <span><?php echo $groups[$i]['username']?></span></p>
             <p>Votes : <span><?php echo $groups[$i]['votes']?></span></p>
+            
+        </div>
+        <form class="form" action="../actions/vote.php" method="POST">
+            <input type="hidden" name="groupvotes" value="<?php echo $groups[$i]['votes']?>">
+            <input type="hidden" name="groupid" value="<?php echo $groups[$i]['id']?>">
             <?php
             if($status==1){
                 ?>
-                a<button class="success">Voted</button>
+                <button class="success">Voted</button>
                 <?php
             }else{
                 ?>
-                <a href="../actions/vote.php"><button>Vote</button></a>
+                <button type="submit" class="danger">Vote</button>
                 <?php
             }
             ?>
-        </div>
-        <div class="form">
-            <input type="hidden" name="groupvotes" value="<?php echo $groups[$i]['votes']?>">
-            <input type="hidden" name="groupid" value="<?php echo $groups[$i]['id']?>">
+        </form>
         </div>
         <?php
             }
@@ -165,8 +197,6 @@ $status = $_SESSION['status'];
             <?php
         }
         ?>
-        
-       
 
     </div>
 </body>
