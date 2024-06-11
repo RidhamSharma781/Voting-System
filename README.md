@@ -9,6 +9,7 @@ This is a web-based voting system built using PHP and MySQL. It allows users to 
 - **Vote Casting**: Logged-in users can vote for different registered candidates.
 - **Candidate Registration**: Admin can register candidates for the election.
 - **Secure Voting**: Ensures that each user can only vote once.
+- - **Password Hashing **: Maintains security of user data using password hashing.
 
 ## Technologies Used
 
