@@ -16,7 +16,8 @@ if($password != $cpassword){
     </script>";
 }else{
     move_uploaded_file($tmp_name,"../uploads/$image");
-    $sql = "insert into `userdata` (username,mobile,password,photo,type,status,votes) values ('$username','$mobile','$password','$image','$type',0,0)";
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "insert into `userdata` (username,mobile,password,photo,type,status,votes) values ('$username','$mobile','$hash','$image','$type',0,0)";
 
     $result = mysqli_query($con,$sql);
     if($result){

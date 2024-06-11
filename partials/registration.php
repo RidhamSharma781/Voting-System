@@ -110,7 +110,7 @@
                 </div>
                 <button type="submit">Register</button>
             </form>
-            <p>Alredy have ans account? <a href="../index.php">Login here!</a></p>
+            <p>Already have ans account? <a href="../index.php">Login here!</a></p>
         </div>
 
 </body>
